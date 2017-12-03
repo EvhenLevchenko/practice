@@ -22,7 +22,6 @@ public class Start {
 
         Collections.sort(cars);
         print();
-        print();
         System.out.println(cars.get(1).getName());
 
 
