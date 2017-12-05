@@ -22,6 +22,7 @@ public class Main {
         System.out.println(hashSet.contains(6));
         System.out.println(hashSet);
         System.out.println("****************************");
+        System.out.println();
 
 
         Set<Integer> linked = new LinkedHashSet<>();
