@@ -59,6 +59,7 @@ public class Main {
 //        System.out.println(people.size());
 
 List<String> strings=new ArrayList<>();
+List<String> strings1=new LinkedList<>();
 strings.add("abc");
     }
 }
