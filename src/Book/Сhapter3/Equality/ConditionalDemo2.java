@@ -9,7 +9,6 @@ class ConditionalDemo2 {
         int result;
         boolean someCondition = true;
         result = someCondition ? value1 : value2;
-
         System.out.println(result);
     }
 }
