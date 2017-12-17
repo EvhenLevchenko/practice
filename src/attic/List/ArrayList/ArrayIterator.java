@@ -1,4 +1,4 @@
-package ArrayList;
+package attic.List.ArrayList;
 
 import java.util.Iterator;
 

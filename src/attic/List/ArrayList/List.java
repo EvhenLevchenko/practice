@@ -1,4 +1,4 @@
-package ArrayList;
+package attic.List.ArrayList;
 
 public interface List<E>extends Iterable<E> {
 

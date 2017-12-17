@@ -1,4 +1,4 @@
-package Tree;
+package attic.Tree;
 
 public class TreeNode {
     int val;

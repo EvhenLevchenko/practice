@@ -1,4 +1,4 @@
-package LinkedList;
+package attic.List.LinkedList;
 
 import java.util.Iterator;
 

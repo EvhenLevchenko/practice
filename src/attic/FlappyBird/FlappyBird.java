@@ -1,4 +1,4 @@
-package Game.FlappyBird;
+package attic.FlappyBird;
 
 import java.awt.Color;
 import java.awt.Font;

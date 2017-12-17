@@ -1,4 +1,4 @@
-package Book.Сhapter3.Equality;
+package attic.Сhapter3.Equality;
 
 class ConditionalDemo1 {
 

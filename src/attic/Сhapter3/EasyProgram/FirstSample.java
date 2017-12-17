@@ -1,4 +1,4 @@
-package Book.Сhapter3.EasyProgram;
+package attic.Сhapter3.EasyProgram;
 
 public class FirstSample {
     public static void main(String[] args) {

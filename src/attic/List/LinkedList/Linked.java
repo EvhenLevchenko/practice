@@ -1,4 +1,4 @@
-package LinkedList;
+package attic.List.LinkedList;
 
 public interface Linked<E> {
     void addLast(E e);
