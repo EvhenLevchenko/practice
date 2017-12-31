@@ -22,7 +22,7 @@ public class Client {
         }
 
         studentDAO.delete(student0);
-        student1.setGroup("nhglgmng");
+        student1.setGroup("nhglgng");
 
         System.out.println("--------------------------");
         for (Student student : studentDAO.getAll()) {
