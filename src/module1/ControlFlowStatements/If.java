@@ -66,7 +66,7 @@ public class If {
 
         for (int row = 1; row < 10; row++) {
             for (int column = 1; column < 10; column++) {
-                System.out.print(column);
+                System.out.print(row*column+"\t");
             }
             System.out.println();
         }
