@@ -34,7 +34,6 @@ public class Person {
         this.color = color;
     }
 
-
     public int getId() {
         return id;
     }
