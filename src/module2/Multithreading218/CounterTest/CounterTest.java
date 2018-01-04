@@ -1,7 +1,5 @@
-package module2.Multithreading.CounterTest;
+package module2.Multithreading218.CounterTest;
 
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 class Counter {
     public int value=0;

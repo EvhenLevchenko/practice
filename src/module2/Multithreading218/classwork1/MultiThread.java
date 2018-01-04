@@ -1,4 +1,4 @@
-package module2.Multithreading.classwork1;
+package module2.Multithreading218.classwork1;
 
 
 class MyRunnable implements Runnable {

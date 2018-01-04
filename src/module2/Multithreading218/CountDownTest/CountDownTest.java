@@ -1,4 +1,4 @@
-package module2.Multithreading.CountDownTest;
+package module2.Multithreading218.CountDownTest;
 
 
 import java.util.concurrent.CountDownLatch;

@@ -1,4 +1,4 @@
-package module2.Multithreading.SemaphoreTest.One;
+package module2.Multithreading218.SemaphoreTest.One;
 
 import java.util.Random;
 import java.util.concurrent.Semaphore;

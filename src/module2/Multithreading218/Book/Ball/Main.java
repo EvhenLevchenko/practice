@@ -1,4 +1,4 @@
-package module2.Multithreading.Book.Ball;
+package module2.Multithreading218.Book.Ball;
 
 public class Main {
     public static void main(String[] args) {
