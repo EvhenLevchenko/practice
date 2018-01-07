@@ -41,6 +41,7 @@ public class Main {
                 return 0;
             }
         });
+
         System.out.println();
         for (Car car : cars) {
             System.out.println(car);
