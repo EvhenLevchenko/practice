@@ -2,11 +2,11 @@ package dontsee.lerningManagmentSystem.model;
 
 import java.io.Serializable;
 
-public class Trainer implements Serializable,HasID {
+public class Trainer implements Serializable,HasID{
+    private static int idCounter;
     private int id;
     private String firstName;
     private String lastName;
-    private static int idCounter = 0;
 
     public Trainer(String firstName, String lastName) {
         this.id = ++idCounter;
@@ -28,7 +28,8 @@ public class Trainer implements Serializable,HasID {
     }
 
     @Override
-    public int getId() {
+    public int getID() {
         return id;
     }
 }
+

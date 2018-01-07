@@ -4,6 +4,5 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 public class Journal implements Serializable {
-    private HashMap<Task, Integer> tasks;
-
+    private HashMap<Task,Integer> tasks;
 }

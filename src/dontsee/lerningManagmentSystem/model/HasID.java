@@ -1,5 +1,5 @@
 package dontsee.lerningManagmentSystem.model;
 
 public interface HasID {
-    int getId();
+    int getID();
 }
