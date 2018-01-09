@@ -28,7 +28,7 @@ class MyRunnable implements Runnable {
                 MultiThread.mainThread.interrupt();
             }
             if (Thread.interrupted()) {
-                System.out.println("I was interrupted (" + Thread.currentThread().isInterrupted() + ")");
+                System.out.println("TextComponentFrame was interrupted (" + Thread.currentThread().isInterrupted() + ")");
                 continue;
             }
 
@@ -36,7 +36,7 @@ class MyRunnable implements Runnable {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
-                System.out.println("I was interrupted while I was sleeping");
+                System.out.println("TextComponentFrame was interrupted while TextComponentFrame was sleeping");
                 long afterSleep = System.currentTimeMillis();
              //   System.out.println("Sleep for " + (afterSleep - beforeSleep) + " ms");
                 break;
@@ -64,7 +64,7 @@ public class MultiThread {
         try {
             thread1.join();//ожидает пока завершится поток thread1
         } catch (InterruptedException e) {
-            System.out.println("I was interrupted while I was waiting for thread to finish");
+            System.out.println("TextComponentFrame was interrupted while TextComponentFrame was waiting for thread to finish");
         }
         for (int i = 0; i < 10; i++) {
 

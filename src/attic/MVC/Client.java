@@ -4,7 +4,7 @@ public class Client {
     public static void main(String[] args) {
 
         Student student0 = new Student("Boris", "K");
-        Student student1 = new Student("Vova", "I");
+        Student student1 = new Student("Vova", "TextComponentFrame");
         Student student2 = new Student("Ignat", "O");
         Student student3 = new Student("Gerald", "p");
 

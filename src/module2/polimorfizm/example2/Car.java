@@ -4,7 +4,7 @@ public class Car extends Grass {
 
     @Override
     public void show() {
-        System.out.println("I'm car");
+        System.out.println("TextComponentFrame'm car");
     }
 
 }

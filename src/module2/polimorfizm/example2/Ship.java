@@ -4,6 +4,6 @@ public class Ship extends Water{
 
     @Override
     public void show() {
-        System.out.println("I'm ship");
+        System.out.println("TextComponentFrame'm ship");
     }
 }
