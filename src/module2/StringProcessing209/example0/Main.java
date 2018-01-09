@@ -23,7 +23,6 @@ public class Main {
         System.out.println("*************concat");
         System.out.println();
 
-
         char aChar0 = string1.charAt(0);// доступ по индексу к букве
         char aChar4 = string1.charAt(4);
         System.out.println(aChar0);
