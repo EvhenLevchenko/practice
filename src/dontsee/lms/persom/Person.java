@@ -3,7 +3,7 @@ package dontsee.lms.persom;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class Person implements Serializable {
+public abstract class Person extends jdbc.domain.Person implements Serializable {
     private String firstName;
     private String secondName;
     private int id;
