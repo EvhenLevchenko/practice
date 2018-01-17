@@ -2,6 +2,8 @@ package dontsee.LMSS.dao.model;
 
 import attic.List.ArrayList.List;
 
+import java.sql.ResultSet;
+
 public class Students {
     private int id;
     private String firstName;
@@ -42,6 +44,8 @@ public class Students {
         this.group = group;
     }
 
+    public Students(ResultSet rs) {
+    }
 
 
     public int getId() {
