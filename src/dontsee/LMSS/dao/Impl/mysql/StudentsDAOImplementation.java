@@ -24,6 +24,7 @@ public class StudentsDAOImplementation extends LMSDatabase implements StudentsDA
     private static final String SELECT_STUDENT = "SELECT * FROM students";
     private static final String UPDATE_STUDENT = "UPDATE students SET (first_name,second_name,last_name,age,phone_number,address)VALUES(?,?,?,?,?,?) WHERE student_id=?";
     private static final String DELETE_STUDENT = "DELETE FROM students WHERE  id=?";
+    private static final String TRANSFER_STUDENT = "UPDATE students SET group_id=? WHERE group_id=?";
 
     @Override
     public boolean addStudent(Students student) {
@@ -74,7 +75,20 @@ public class StudentsDAOImplementation extends LMSDatabase implements StudentsDA
 
 
     @Override
-    public boolean transferStudent(Students student) {
+    public boolean transferStudent(Students student) throws SQLException {
+        PreparedStatement ps = null;
+        try {
+            ps = getConnection().prepareStatement(TRANSFER_STUDENT);
+//            ps.setInt(1, newGroup.getGroupId());
+//            ps.setInt(2, newYear);
+//            ps.setInt(3, oldGroup.getGroupId());
+//            ps.setInt(4, oldYear);
+            ps.execute();
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+        }
         return false;
     }
 
