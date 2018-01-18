@@ -13,6 +13,7 @@ public interface StudentsDAO {
     boolean deleteStudent(Students student) throws SQLException;
     boolean transferStudent(Groups oldGroup,Groups newGroup) throws SQLException;
     boolean updateStudent(Students students) throws SQLException;
+
     List<Students> getAll() throws SQLException;
 
 }
