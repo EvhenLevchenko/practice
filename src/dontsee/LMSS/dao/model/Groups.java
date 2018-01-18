@@ -7,7 +7,7 @@ public class Groups {
     private String name;
     private List<Students> student;
 
-    public Groups() {
+    public Groups(int id, String name) {
     }
 
     public Groups(int id, String name, List<Students> student) {
@@ -19,6 +19,9 @@ public class Groups {
     public Groups(String name, List<Students> student) {
         this.name = name;
         this.student = student;
+    }
+
+    public Groups(int id, String name, Students students) {
     }
 
     public int getId() {

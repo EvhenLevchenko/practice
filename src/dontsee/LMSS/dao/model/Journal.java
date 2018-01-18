@@ -3,10 +3,11 @@ package dontsee.LMSS.dao.model;
 import attic.List.ArrayList.List;
 
 public class Journal {
-    private  int id;
+    private int id;
     private int mark;
-    private List<Courses>course;
-    private List<Groups>groups;
+    private List<Courses> course;
+    private List<Groups> groups;
+    List<Teachers> teachers;
 
     public Journal() {
     }
@@ -22,6 +23,9 @@ public class Journal {
         this.mark = mark;
         this.course = course;
         this.groups = groups;
+    }
+
+    public Journal(int id, int mark, Courses courses, Teachers teachers, Groups groups) {
     }
 
     public int getId() {

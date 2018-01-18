@@ -1,9 +1,10 @@
 package dontsee.LMSS.dao.Impl.mysql;
 
-
 import dontsee.LMSS.dao.StudentsDAO;
+import dontsee.LMSS.dao.model.Courses;
+import dontsee.LMSS.dao.model.Groups;
 import dontsee.LMSS.dao.model.Students;
-
+import dontsee.LMSS.dao.model.Teachers;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +12,7 @@ import java.sql.SQLException;
 
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 public class StudentsDAOImplementation extends LMSDatabase implements StudentsDAO {
 
@@ -22,21 +23,16 @@ public class StudentsDAOImplementation extends LMSDatabase implements StudentsDA
 
     private static final String INSERT_STUDENT = "INSERT INTO students (first_name,second_name,last_name,age,phone_number,address ) VALUES (?,?,?,?,?,?)";
     private static final String SELECT_STUDENT = "SELECT * FROM students";
-    private static final String UPDATE_STUDENT = "UPDATE students SET (first_name,second_name,last_name,age,phone_number,address)VALUES(?,?,?,?,?,?) WHERE student_id=?";
     private static final String DELETE_STUDENT = "DELETE FROM students WHERE  id=?";
     private static final String TRANSFER_STUDENT = "UPDATE students SET group_id=? WHERE group_id=?";
+    private static final String UPDATE_STUDENT = "UPDATE students SET first_name = ?, second_name = ?, last_name = ?, age = ?, phone_number = ?, address = ? WHERE id = ?";
 
     @Override
     public boolean addStudent(Students student) {
         PreparedStatement ps = null;
         try {
             ps = getConnection().prepareStatement(INSERT_STUDENT);
-            ps.setString(1, student.getFirstName());
-            ps.setString(2, student.getSecondName());
-            ps.setString(3, student.getLastName());
-            ps.setInt(4, student.getAge());
-            ps.setString(5, student.getPhoneNumber());
-            ps.setString(6, student.getAddress());
+            addStudent(ps, student);
             return ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,18 +50,20 @@ public class StudentsDAOImplementation extends LMSDatabase implements StudentsDA
     }
 
     @Override
-    public void deleteStudent(Students student) throws SQLException {
-        PreparedStatement ps = null;
+    public boolean deleteStudent(Students student) {
+        PreparedStatement pst = null;
         try {
-            ps = getConnection().prepareStatement(DELETE_STUDENT);
-            ps.setInt(1, student.getId());
-            ps.execute();
+            pst = getConnection().prepareStatement(DELETE_STUDENT);
+            deleteStudent(pst, student);
+            return pst.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } finally {
-            if (ps != null) {
+            {
                 try {
-                    ps.close();
+                    assert pst != null;
+                    pst.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -73,16 +71,12 @@ public class StudentsDAOImplementation extends LMSDatabase implements StudentsDA
         }
     }
 
-
     @Override
-    public boolean transferStudent(Students student) throws SQLException {
+    public boolean transferStudent(Groups oldGroup, Groups newGroup) throws SQLException {
         PreparedStatement ps = null;
         try {
             ps = getConnection().prepareStatement(TRANSFER_STUDENT);
-//            ps.setInt(1, newGroup.getGroupId());
-//            ps.setInt(2, newYear);
-//            ps.setInt(3, oldGroup.getGroupId());
-//            ps.setInt(4, oldYear);
+            transferStudent(ps, oldGroup, newGroup);
             ps.execute();
         } finally {
             if (ps != null) {
@@ -93,17 +87,11 @@ public class StudentsDAOImplementation extends LMSDatabase implements StudentsDA
     }
 
     @Override
-    public boolean updateStudent(Students students) throws SQLException {
+    public boolean updateStudent(Students student) throws SQLException {
         PreparedStatement ps = null;
         try {
             ps = getConnection().prepareStatement(UPDATE_STUDENT);
-            ps.setString(1, students.getFirstName());
-            ps.setString(2, students.getSecondName());
-            ps.setString(3, students.getLastName());
-            ps.setInt(4, students.getAge());
-            ps.setString(5, students.getPhoneNumber());
-            ps.setString(6, students.getAddress());
-            ps.setInt(8, students.getId());
+            updateStudent(ps, student);
             ps.execute();
         } finally {
             if (ps != null) {
@@ -114,25 +102,77 @@ public class StudentsDAOImplementation extends LMSDatabase implements StudentsDA
     }
 
     @Override
-    public void getAll() throws SQLException {
-        Collection<Students> students = new ArrayList<Students>();
-
-        Statement stmt = null;
-        ResultSet rs = null;
+    public List<Students> getAll() {
+        List<Students> result = new ArrayList<>();
+        Statement st = null;
         try {
-            stmt = getConnection().createStatement();
-            rs = stmt.executeQuery(SELECT_STUDENT);
-            while (rs.next()) {
-                Students st = new Students(rs);
-                students.add(st);
+            st = getConnection().createStatement();
+            st.execute(SELECT_STUDENT);
+            ResultSet resultSet = st.getResultSet();
+            while (resultSet.next()) {
+                Students student = new Students(
+                        resultSet.getInt("id"),
+                        resultSet.getString("first_name"),
+                        resultSet.getString("second_name"),
+                        resultSet.getString("last_name"),
+                        resultSet.getInt("age"),
+                        resultSet.getString("phone_number"),
+                        resultSet.getString("address"),
+                        new Courses(
+                                resultSet.getInt("id"),
+                                resultSet.getString("name")
+                        ),
+                        new Teachers(
+                                resultSet.getInt("id"),
+                                resultSet.getString("first_name"),
+                                resultSet.getString("second_name"),
+                                resultSet.getString("last_name")
+                        ),
+                        new Groups(
+                                resultSet.getInt("id"),
+                                resultSet.getString("name")
+                        ));
+                result.add(student);
             }
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stmt != null) {
-                stmt.close();
+            try {
+                assert st != null;
+                st.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
+        return result;
+    }
+
+    private void addStudent(PreparedStatement ps, Students student) throws SQLException {
+        ps.setString(1, student.getFirstName());
+        ps.setString(2, student.getSecondName());
+        ps.setString(3, student.getLastName());
+        ps.setInt(4, student.getAge());
+        ps.setString(5, student.getPhoneNumber());
+        ps.setString(6, student.getAddress());
+
+    }
+    private void deleteStudent(PreparedStatement ps, Students student) throws SQLException {
+        ps.setInt(1, student.getId());
+    }
+    private void transferStudent(PreparedStatement ps, Groups oldGroup, Groups newGroup) throws SQLException {
+        ps.setInt(1, oldGroup.getId());
+        ps.setInt(2, newGroup.getId());
+
+    }
+    private void updateStudent(PreparedStatement ps, Students student) throws SQLException {
+        ps.setString(1, student.getFirstName());
+        ps.setString(2, student.getSecondName());
+        ps.setString(3, student.getLastName());
+        ps.setInt(4, student.getAge());
+        ps.setString(5, student.getPhoneNumber());
+        ps.setString(6, student.getAddress());
+        ps.setInt(7, student.getId());
     }
 }
+

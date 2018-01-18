@@ -7,26 +7,46 @@ public class Teachers {
     private String firstName;
     private String secondName;
     private String lastName;
+    private String phoneNumber;
     private List<Courses> course;
     private List<Groups> group;
 
-    public Teachers() { }
 
-    public Teachers(String firstName, String secondName, String lastName, List<Courses> course, List<Groups> group) {
+    public Teachers(String firstName, String secondName, String lastName, String phoneNumber, List<Courses> course, List<Groups> group) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.course = course;
         this.group = group;
     }
 
-    public Teachers(int id, String firstName, String secondName, String lastName, List<Courses> course, List<Groups> group) {
+    public Teachers(int id, String firstName, String secondName, String lastName, String phoneNumber, List<Courses> course, List<Groups> group) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.course = course;
         this.group = group;
+    }
+
+    public Teachers(int id, String first_name, String second_name, String last_name, String phone_number, Courses courses, Groups groups) {
+    }
+
+    public Teachers(int id, String first_name, String second_name, String last_name) {
+
+    }
+
+    public Teachers(int id, String first_name, String second_name, String last_name, Groups groups, boolean add) {
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public int getId() {

@@ -3,13 +3,14 @@ package dontsee.LMSS.dao.model;
 import attic.List.ArrayList.List;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Courses {
     private int id;
     private String name;
     private String description;
-    private LocalDate startDate;
-    private LocalDate finishDate;
+    private Date startDate;
+    private Date finishDate;
     private String task;
     private List<Teachers> teacher;
     private List<Groups> group;
@@ -18,7 +19,7 @@ public class Courses {
     public Courses() {
     }
 
-    public Courses(int id, String name, String description, LocalDate startDate, LocalDate finishDate, String task, List<Teachers> teacher, List<Groups> group) {
+    public Courses(int id, String name, String description, Date startDate, Date finishDate, String task, List<Teachers> teacher, List<Groups> group) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -29,7 +30,7 @@ public class Courses {
         this.group = group;
     }
 
-    public Courses(String name, String description, LocalDate startDate, LocalDate finishDate, String task, List<Teachers> teacher, List<Groups> group) {
+    public Courses(String name, String description, Date startDate, Date finishDate, String task, List<Teachers> teacher, List<Groups> group) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
@@ -38,6 +39,14 @@ public class Courses {
         this.teacher = teacher;
         this.group = group;
     }
+
+    public Courses(int id, String name, String description, Date start_date, Date finish_date, String task, Teachers teachers, Groups groups) {
+    }
+
+    public Courses(int id, String name) {
+
+    }
+
 
     public int getId() {
         return id;
@@ -63,19 +72,19 @@ public class Courses {
         this.description = description;
     }
 
-    public LocalDate getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getFinishDate() {
+    public Date getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(LocalDate finishDate) {
+    public void setFinishDate(Date finishDate) {
         this.finishDate = finishDate;
     }
 

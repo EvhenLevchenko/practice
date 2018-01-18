@@ -9,7 +9,7 @@ public class Timetable {
     private Date finishLecture;
     private List<Courses>course;
 
-    public Timetable() {
+    public Timetable(String days, java.sql.Date startDate, java.sql.Date finishDate, Courses courses) {
     }
 
     public Timetable(String days, Date startLecture, Date finishLecture, List<Courses> course) {

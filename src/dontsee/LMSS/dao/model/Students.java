@@ -16,7 +16,7 @@ public class Students {
     private List<Teachers> teacher;
     private List<Groups> group;
 
-    public Students() { }
+    public Students(int id, String first_name, String second_name, String last_name, int age, String phone_number, String address, Courses courses, Teachers teachers, Groups groups) { }
 
 
     public Students(String firstName, String secondName, String lastName, int age, String phoneNumber, String address, List<Courses> course, List<Teachers> teacher, List<Groups> group) {
@@ -45,6 +45,10 @@ public class Students {
     }
 
     public Students(ResultSet rs) {
+    }
+
+    public Students(int id, String first_name, String second_name, String last_name) {
+
     }
 
 

@@ -1,8 +1,16 @@
 package dontsee.LMSS.dao;
 
-import attic.List.ArrayList.List;
-import dontsee.LMSS.dao.model.Journal;
+
+
+import dontsee.LMSS.dao.model.Timetable;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public interface TimetableDAO{
-    List<Journal>getTimetable();
+    List<Timetable> getTimetable();
+    boolean addTimetable(Timetable timetable);
+    boolean deleteTimetable(Timetable timetable);
+    boolean updateTimetable(Timetable timetable) throws SQLException;
+
 }
