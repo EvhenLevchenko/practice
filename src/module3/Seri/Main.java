@@ -19,7 +19,6 @@ public class Main {
         readObject();
     }
 
-
 //        Car.Skoda skoda=new Car.Skoda("fdb",1900);
 //        FileOutputStream fis=new FileOutputStream("s.txt");
 //        ObjectOutputStream o=new ObjectOutputStream(fis);
