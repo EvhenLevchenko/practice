@@ -79,4 +79,14 @@ public class LMSDatabase {
     Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
     }
+
+    private  void createTable() throws SQLException{
+        getConnection().createStatement().execute(CREATE_STUDENTS);
+        getConnection().createStatement().execute(CREATE_TEACHERS);
+        getConnection().createStatement().execute(CREATE_COURSES);
+        getConnection().createStatement().execute(CREATE_GROUPS);
+        getConnection().createStatement().execute(CREATE_JOURNAL);
+        getConnection().createStatement().execute(CREATE_TIMETABLE);
+    }
+
 }

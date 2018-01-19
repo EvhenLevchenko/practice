@@ -18,6 +18,7 @@ public class StudentsDAOImplementation extends LMSDatabase implements StudentsDA
 
 
     public StudentsDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        super();
 
     }
 
