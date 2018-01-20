@@ -15,19 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupsDAOImplementation extends LMSDatabase implements GroupsDAO {
-    public GroupsDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-    }
 
-    private static final String INSERT_GROUPS = "INSERT INTO groups (name) VALUES (?)";
-    private static final String SELECT_GROUPS = "SELECT * FROM groups";
-    private static final String DELETE_GROUPS = "DELETE FROM courses WHERE id=?";
-    private static final String UPDATE_GROUPS = "UPDATE  courses name=?,description=?,startDate=?,finishDate=?,task=?";
+    GroupsDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+        super();
+        createTableGroups();
+    }
+    private static final String INSERT_GROUP = "INSERT INTO groups (name) VALUES (?)";
+    private static final String SELECT_GROUP = "SELECT * FROM groups";
+    private static final String DELETE_GROUP = "DELETE FROM groups WHERE id = ?";
+    private static final String UPDATE_GROUP = "UPDATE groups SET name = ? WHERE id = ?";
 
     @Override
     public boolean addGroup(Groups group) {
         PreparedStatement ps = null;
         try {
-            ps = getConnection().prepareStatement(INSERT_GROUPS);
+            ps = getConnection().prepareStatement(INSERT_GROUP);
             addGroup(ps, group);
             return ps.execute();
         } catch (SQLException e) {
@@ -49,7 +51,7 @@ public class GroupsDAOImplementation extends LMSDatabase implements GroupsDAO {
     public boolean deleteGroup(Groups group) {
         PreparedStatement pst = null;
         try {
-            pst = getConnection().prepareStatement(DELETE_GROUPS);
+            pst = getConnection().prepareStatement(DELETE_GROUP);
             deleteGroup(pst, group);
             return pst.execute();
         } catch (SQLException e) {
@@ -72,7 +74,7 @@ public class GroupsDAOImplementation extends LMSDatabase implements GroupsDAO {
 
         PreparedStatement ps = null;
         try {
-            ps = getConnection().prepareStatement(UPDATE_GROUPS);
+            ps = getConnection().prepareStatement(UPDATE_GROUP);
             updateGroup(ps, group);
             ps.execute();
         } finally {
@@ -89,7 +91,7 @@ public class GroupsDAOImplementation extends LMSDatabase implements GroupsDAO {
         Statement st = null;
         try {
             st = getConnection().createStatement();
-            st.execute(SELECT_GROUPS);
+            st.execute(SELECT_GROUP);
             ResultSet resultSet = st.getResultSet();
             while (resultSet.next()) {
                 Groups group = new Groups(
@@ -121,12 +123,13 @@ public class GroupsDAOImplementation extends LMSDatabase implements GroupsDAO {
     private void addGroup(PreparedStatement ps, Groups group) throws SQLException {
         ps.setString(1, group.getName());
     }
-    private void deleteGroup(PreparedStatement ps, Groups groups) throws SQLException {
-        ps.setInt(1, groups.getId());
+    private void deleteGroup(PreparedStatement ps, Groups group) throws SQLException {
+        ps.setInt(1, group.getId());
     }
     private void updateGroup(PreparedStatement ps, Groups group) throws SQLException {
         ps.setString(1, group.getName());
         ps.setInt(2, group.getId());
     }
+
 }
 

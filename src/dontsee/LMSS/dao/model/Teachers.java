@@ -12,6 +12,9 @@ public class Teachers {
     private List<Groups> group;
 
 
+    public Teachers() {
+    }
+
     public Teachers(String firstName, String secondName, String lastName, String phoneNumber, List<Courses> course, List<Groups> group) {
         this.firstName = firstName;
         this.secondName = secondName;
@@ -36,9 +39,6 @@ public class Teachers {
 
     public Teachers(int id, String first_name, String second_name, String last_name) {
 
-    }
-
-    public Teachers(int id, String first_name, String second_name, String last_name, Groups groups, boolean add) {
     }
 
     public String getPhoneNumber() {

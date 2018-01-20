@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TimetableDAOImplementation extends LMSDatabase implements TimetableDAO {
-    private static final String INSERT_TIMETABLE = "INSERT INTO timetable (days,start_lecture,finish_lecture) VALUES (?,?,?)";
+    private static final String INSERT_TIMETABLE = "INSERT INTO timetable (days, start_lecture, finish_lecture) VALUES (?,?,?)";
     private static final String SELECT_TIMETABLE = "SELECT * FROM timetable";
-    private static final String DELETE_TIMETABlE = "DELETE FROM timetable WHERE days=?";
-    private static final String UPDATE_TIMETABLE = "UPDATE  timetable SET start_lecture=?,finish_lecture=? WHERE days=?";
+    private static final String DELETE_TIMETABLE = "DELETE FROM timetable WHERE days = ?";
+    private static final String UPDATE_TIMETABLE = "UPDATE timetable SET start_lecture = ?, finish_lecture = ? WHERE days = ?";
 
     public TimetableDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
     }
@@ -79,7 +79,7 @@ public class TimetableDAOImplementation extends LMSDatabase implements Timetable
     public boolean deleteTimetable(Timetable timetable) {
         PreparedStatement pst = null;
         try {
-            pst = getConnection().prepareStatement(DELETE_TIMETABlE);
+            pst = getConnection().prepareStatement(DELETE_TIMETABLE);
             deleteTimetable(pst, timetable);
             return pst.execute();
         } catch (SQLException e) {
@@ -116,8 +116,8 @@ public class TimetableDAOImplementation extends LMSDatabase implements Timetable
 
     private void addTimetable(PreparedStatement ps, Timetable timetable) throws SQLException {
         ps.setString(1, timetable.getDays());
-        ps.setDate(2, (Date) timetable.getFinishLecture());
-        ps.setDate(3, (Date) timetable.getStartLecture());
+        ps.setDate(2, (Date) timetable.getStartLecture());
+        ps.setDate(3, (Date) timetable.getFinishLecture());
 
     }
 
@@ -126,8 +126,8 @@ public class TimetableDAOImplementation extends LMSDatabase implements Timetable
     }
 
     private void updateTimetable(PreparedStatement ps, Timetable timetable) throws SQLException {
-        ps.setDate(1, (Date) timetable.getFinishLecture());
-        ps.setDate(2, (Date) timetable.getStartLecture());
+        ps.setDate(1, (Date) timetable.getStartLecture());
+        ps.setDate(2, (Date) timetable.getFinishLecture());
         ps.setString(3, timetable.getDays());
 
     }

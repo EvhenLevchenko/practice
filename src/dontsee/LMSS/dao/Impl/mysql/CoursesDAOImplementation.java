@@ -11,20 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CoursesDAOImplementation extends LMSDatabase implements CoursesDAO {
-    public CoursesDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-    }
+    private static final String INSERT_COURSE = "INSERT INTO courses (name, description, start_date, finish_date, task) VALUES (?,?,?,?,?)";
+    private static final String SELECT_COURSE = "SELECT * FROM courses";
+    private static final String DELETE_COURSE = "DELETE FROM courses WHERE id = ?";
+    private static final String UPDATE_COURSE = "UPDATE courses SET name = ?, description = ?, start_date = ?, finish_date = ?, task = ?  WHERE id = ?";
 
-    private static final String INSERT_COURSES = "INSERT INTO courses (name,description,startDate,finishDate,task ) VALUES (?,?,?,?,?)";
-    private static final String SELECT_COURSES = "SELECT * FROM courses";
-    private static final String DELETE_COURSES = "DELETE FROM courses WHERE id=?";
-    private static final String UPDATE_COURSES = "UPDATE  courses name=?,description=?,startDate=?,finishDate=?,task=?";
+    CoursesDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+        super();
+        createTableCourses();
+    }
 
 
     @Override
     public boolean addCourse(Courses course) {
         PreparedStatement ps = null;
         try {
-            ps = getConnection().prepareStatement(INSERT_COURSES);
+            ps = getConnection().prepareStatement(INSERT_COURSE);
       addCourse(ps,course);
             return ps.execute();
         } catch (SQLException e) {
@@ -46,7 +48,7 @@ public class CoursesDAOImplementation extends LMSDatabase implements CoursesDAO 
     public boolean deleteCourse(Courses course) {
         PreparedStatement pst = null;
         try {
-            pst = getConnection().prepareStatement(DELETE_COURSES);
+            pst = getConnection().prepareStatement(DELETE_COURSE);
             deleteCourse(pst, course);
             return pst.execute();
         } catch (SQLException e) {
@@ -68,7 +70,7 @@ public class CoursesDAOImplementation extends LMSDatabase implements CoursesDAO 
     public boolean updateCourse(Courses course) throws SQLException {
         PreparedStatement ps = null;
         try {
-            ps = getConnection().prepareStatement(UPDATE_COURSES);
+            ps = getConnection().prepareStatement(UPDATE_COURSE);
             updateCourse(ps, course);
             ps.execute();
         } finally {
@@ -84,7 +86,7 @@ public class CoursesDAOImplementation extends LMSDatabase implements CoursesDAO 
         Statement st = null;
         try {
             st = getConnection().createStatement();
-            st.execute(SELECT_COURSES);
+            st.execute(SELECT_COURSE);
             ResultSet resultSet = st.getResultSet();
             while (resultSet.next()) {
                 Courses course = new Courses(
@@ -136,5 +138,6 @@ public class CoursesDAOImplementation extends LMSDatabase implements CoursesDAO 
         ps.setDate(3,(Date) course.getStartDate());
         ps.setDate(4,(Date) course.getFinishDate());
         ps.setString(5, course.getTask());
+        ps.setInt(6,course.getId());
     }
 }

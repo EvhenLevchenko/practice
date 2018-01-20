@@ -6,86 +6,110 @@ import java.sql.SQLException;
 
 public class LMSDatabase {
     private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/sdo";
+    private static final String DB_URL = "jdbc:mysql://localhost:5432/java?useSSL=false";
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "password";
 
 
-    public static final String CREATE_STUDENTS = "CREATE TABLE students(\n" +
-            "id int AUTO_INCREMENT,\n" +
-            "first_name varchar(15),\n" +
-            "second_name varchar(15),\n" +
-            "last_name varchar(15),\n" +
-            "age int(100),\n" +
-            "FOREIGN KEY (course_id) references courses(id),\n" +
-            "phone_number varchar(13),\n" +
-            "address varchar(100),\n" +
-            "FOREIGN KEY (teacher_id) references teachers(id),\n" +
-            "FOREIGN KEY (group_id) references groups(id)\n" +
-            "PRIMARY KEY (id)\n" +
+    private static final String CREATE_STUDENTS = "CREATE TABLE students(" +
+            "id int AUTO_INCREMENT," +
+            "first_name varchar(15)," +
+            "second_name varchar(15)," +
+            "last_name varchar(15)," +
+            "age int(100)," +
+            //"FOREIGN KEY (course_id) references courses(id)," +
+            "phone_number varchar(13)," +
+            "address varchar(100)," +
+            //"FOREIGN KEY (teacher_id) references teachers(id)," +
+            //"FOREIGN KEY (group_id) references groups(id)," +
+            "PRIMARY KEY (id)" +
             ")";
 
-    public static final String CREATE_TEACHERS = "CREATE TABLE teachers(\n" +
-            "id int AUTO_INCREMENT,\n" +
-            "first_name varchar(15),\n" +
-            "second_name varchar(15),\n" +
-            "last_name varchar(15),\n" +
-            "phone_number varchar(13),\n" +
-            "foreign key (course_id) references courses(id),\n" +
-            "foreign key (group_id) references groups(id)\n" +
-            "PRIMARY KEY (id)\n" +
+    private static final String CREATE_TEACHERS = "CREATE TABLE teachers(" +
+            "id int AUTO_INCREMENT," +
+            "first_name varchar(15)," +
+            "second_name varchar(15)," +
+            "last_name varchar(15)," +
+            "phone_number varchar(13)," +
+            "foreign key (course_id) references courses(id)," +
+            "foreign key (group_id) references groups(id)," +
+            "PRIMARY KEY (id)" +
             ")";
 
-    public static final String CREATE_COURSES = "CREATE TABLE courses(\n" +
-            "id int AUTO_INCREMENT,\n" +
-            "name varchar(20),\n" +
-            "description varchar(2000),\n" +
-            "FOREIGN KEY (group_id)references groups(id),\n" +
-            "FOREIGN KEY (teacher_id) references teachers(id),\n" +
-            "start_date date,\n" +
-            "finish_date date,\n" +
-            "task varchar(2000)\n" +
-            "PRIMARY KEY (id)\n" +
+    private static final String CREATE_COURSES = "CREATE TABLE courses(" +
+            "id int AUTO_INCREMENT," +
+            "name varchar(20)," +
+            "description varchar(2000)," +
+            "FOREIGN KEY (group_id)references groups(id)," +
+            "FOREIGN KEY (teacher_id) references teachers(id)," +
+            "start_date date," +
+            "finish_date date," +
+            "task varchar(2000)," +
+            "PRIMARY KEY (id)" +
             ")";
 
     private static final String CREATE_GROUPS = "CREATE TABLE groups(\n" +
-            "id int AUTO_INCREMENT,\n" +
-            "name varchar(10),\n" +
-            "FOREIGN KEY (student_d) references students(id)\n" +
-            "PRIMARY KEY (id)\n" +
+            "id int AUTO_INCREMENT," +
+            "name varchar(10)," +
+            "FOREIGN KEY (student_d) references students(id)," +
+            "PRIMARY KEY (id)" +
             ")";
 
-    public static final String CREATE_JOURNAL = "CREATE TABLE journal(\n" +
-            "id int AUTO_INCREMENT,\n" +
-            "FOREIGN KEY (group_id) references groups(id),\n" +
-            "FOREIGN KEY (course_id) references courses(id),\n" +
-            "mark int(100)\n" +
-            "PRIMARY KEY (id)\n" +
+    private static final String CREATE_JOURNAL = "CREATE TABLE journal(" +
+            "id int AUTO_INCREMENT," +
+            "FOREIGN KEY (group_id) references groups(id)," +
+            "FOREIGN KEY (course_id) references courses(id)," +
+            "mark int(100)," +
+            "PRIMARY KEY (id)" +
             ")";
 
-    public static final String CREATE_TIMETABLE = "CREATE TABLE timetable(\n" +
-            "day varchar (10),\n" +
-            "FOREIGN KEY (course_id) references courses(id),\n" +
-            "start_lecture datetime,\n" +
-            "finish_lecture datetime\n" +
+    private static final String CREATE_TIMETABLE = "CREATE TABLE timetable(" +
+            "id int AUTO_INCREMENT," +
+            "day varchar (10)," +
+            "FOREIGN KEY (course_id) references courses(id)," +
+            "start_lecture datetime," +
+            "finish_lecture datetime," +
+            "PRIMARY KEY (id)" +
             ")";
 
-
-    public LMSDatabase() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+    LMSDatabase() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         Class.forName(DRIVER_NAME).newInstance();
-
     }
 
-    Connection getConnection() throws SQLException {
+    protected Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
     }
 
-    private  void createTable() throws SQLException{
+    protected void createAllTables() throws SQLException {
         getConnection().createStatement().execute(CREATE_STUDENTS);
         getConnection().createStatement().execute(CREATE_TEACHERS);
         getConnection().createStatement().execute(CREATE_COURSES);
         getConnection().createStatement().execute(CREATE_GROUPS);
         getConnection().createStatement().execute(CREATE_JOURNAL);
+        getConnection().createStatement().execute(CREATE_TIMETABLE);
+    }
+
+    protected void createTableStudents() throws SQLException {
+        getConnection().createStatement().execute(CREATE_STUDENTS);
+    }
+
+    protected void createTableTeachers() throws SQLException {
+        getConnection().createStatement().execute(CREATE_TEACHERS);
+    }
+
+    protected void createTableCourses() throws SQLException {
+        getConnection().createStatement().execute(CREATE_COURSES);
+    }
+
+    protected void createTableGroups() throws SQLException {
+        getConnection().createStatement().execute(CREATE_GROUPS);
+    }
+
+    protected void createTableJournal() throws SQLException {
+        getConnection().createStatement().execute(CREATE_JOURNAL);
+    }
+
+    protected void createTableTimetable() throws SQLException {
         getConnection().createStatement().execute(CREATE_TIMETABLE);
     }
 

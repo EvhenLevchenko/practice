@@ -3,6 +3,7 @@ package dontsee.LMSS.dao.Impl.mysql;
 import dontsee.LMSS.dao.JournalDAO;
 import dontsee.LMSS.dao.model.*;
 
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,14 +11,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JournalDAOImplementation extends  LMSDatabase implements JournalDAO{
+public class JournalDAOImplementation extends  LMSDatabase implements JournalDAO,Serializable {
 
-    private static final String INSERT_JOURNAL = "INSERT INTO journal (name) VALUES (?)";
+    private static final long serialVersionUID = -1005105079029085202L;
+    private static final String INSERT_JOURNAL = "INSERT INTO journal (mark) VALUES (?)";
     private static final String SELECT_JOURNAL = "SELECT * FROM journal";
-    private static final String DELETE_JOURNAL = "DELETE FROM journal WHERE id=?";
-    private static final String UPDATE_JOURNAL = "UPDATE  journal name=?,description=?,startDate=?,finishDate=?,task=?";
+    private static final String DELETE_JOURNAL = "DELETE FROM journal WHERE id = ?";
+    private static final String UPDATE_JOURNAL = "UPDATE journal SET mark = ? WHERE id = ?";
 
-    public JournalDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+    JournalDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+        super();
+        createTableJournal();
     }
 
     @Override
@@ -80,7 +84,7 @@ public class JournalDAOImplementation extends  LMSDatabase implements JournalDAO
     }
 
     @Override
-    public List<Journal> getAll() throws SQLException {
+    public List<Journal> getAll() {
         List<Journal> result = new ArrayList<>();
         Statement st = null;
         try {

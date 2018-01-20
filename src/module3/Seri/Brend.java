@@ -2,16 +2,14 @@ package module3.Seri;
 
 import java.io.Serializable;
 
-public class Skoda implements Serializable {
+public class Brend implements Serializable {
     private String brend;
     private  int year;
 
-    public Skoda() {
+    public Brend() {
     }
 
-
-
-    public Skoda(String brend, int year) {
+    public Brend(String brend, int year) {
         this.brend = brend;
         this.year = year;
     }
@@ -28,16 +26,15 @@ public class Skoda implements Serializable {
         return year;
     }
 
+    public void setYear(int year) {
+        this.year = year;
+    }
 
     @Override
     public String toString() {
-        return "Skoda{" +
+        return "Brend{" +
                 "brend='" + brend + '\'' +
                 ", year=" + year +
                 '}';
-    }
-
-    public void setYear(int year) {
-        this.year = year;
     }
 }

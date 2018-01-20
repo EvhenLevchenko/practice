@@ -4,27 +4,48 @@ import java.util.Date;
 import java.util.List;
 
 public class Timetable {
-    private String Days;
+    private int id;
+    private String days;
     private Date startLecture;
     private Date finishLecture;
-    private List<Courses>course;
+    private List<Courses> course;
 
-    public Timetable(String days, java.sql.Date startDate, java.sql.Date finishDate, Courses courses) {
+
+    public Timetable(int id, String days, java.sql.Date start_lecture, java.sql.Date finish_lecture, Courses courses){
+        this.id = id;
+        this.days = days;
+        this.startLecture = start_lecture;
+        this.finishLecture = finish_lecture;
+        this.course = (List<Courses>) courses;
     }
 
-    public Timetable(String days, Date startLecture, Date finishLecture, List<Courses> course) {
-        Days = days;
+    public Timetable(int id ,String days, Date startLecture, Date finishLecture, List<Courses> course) {
+        this.id = id;
+        this.days = days;
         this.startLecture = startLecture;
         this.finishLecture = finishLecture;
         this.course = course;
     }
 
+    public Timetable(String days, Date startDate, Date finishDate, Courses courses) {
+
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getDays() {
-        return Days;
+        return days;
     }
 
     public void setDays(String days) {
-        Days = days;
+        this.days = days;
     }
 
     public Date getStartLecture() {
@@ -54,7 +75,8 @@ public class Timetable {
     @Override
     public String toString() {
         return "Timetable{" +
-                "Days='" + Days + '\'' +
+                "id=" + id +
+                ", days='" + days + '\'' +
                 ", startLecture=" + startLecture +
                 ", finishLecture=" + finishLecture +
                 ", course=" + course +

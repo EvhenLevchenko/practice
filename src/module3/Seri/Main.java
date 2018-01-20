@@ -7,7 +7,7 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        Car car = new Car(1, "bfd", 5, 200, new Skoda("bfdb", 5),4);
+        Car car = new Car(4, 4584, "Black", 2015,0,new Brend("Tri Topora",1969));
         FileOutputStream fis = new FileOutputStream("s.txt");
         try {
             ObjectOutputStream o = new ObjectOutputStream(fis);
@@ -19,15 +19,7 @@ public class Main {
         readObject();
     }
 
-//        Car.Skoda skoda=new Car.Skoda("fdb",1900);
-//        FileOutputStream fis=new FileOutputStream("s.txt");
-//        ObjectOutputStream o=new ObjectOutputStream(fis);
-//        o.writeObject(skoda);
-//
-//        System.out.println();
-//
-//        readObjec();
-//    }
+
 //        Student student = new Student("Bob", "Pi", 32);
 //
 //        FileOutputStream fis = new FileOutputStream("s.txt");

@@ -6,22 +6,32 @@ public class Groups {
     private int id;
     private String name;
     private List<Students> student;
+    private List<Teachers> teacher;
 
-    public Groups(int id, String name) {
-    }
 
-    public Groups(int id, String name, List<Students> student) {
+    public Groups(){}
+
+    public Groups(int id, String name, List<Students> student, List<Teachers> teacher) {
         this.id = id;
         this.name = name;
         this.student = student;
+        this.teacher = teacher;
+    }
+
+    public Groups(int id, String name){
+        this.id =id ;
+        this.name = name;
+    }
+
+    public Groups(int id, String name, Students student) {
+        this.id = id;
+        this.name = name;
+        this.student = (List<Students>) student;
     }
 
     public Groups(String name, List<Students> student) {
         this.name = name;
         this.student = student;
-    }
-
-    public Groups(int id, String name, Students students) {
     }
 
     public int getId() {
@@ -48,12 +58,21 @@ public class Groups {
         this.student = student;
     }
 
+    public List<Teachers> getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(List<Teachers> teacher) {
+        this.teacher = teacher;
+    }
+
     @Override
     public String toString() {
         return "Groups{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", student=" + student +
+                ", teacher=" + teacher +
                 '}';
     }
 }

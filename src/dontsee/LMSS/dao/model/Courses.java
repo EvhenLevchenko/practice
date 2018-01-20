@@ -19,15 +19,9 @@ public class Courses {
     public Courses() {
     }
 
-    public Courses(int id, String name, String description, Date startDate, Date finishDate, String task, List<Teachers> teacher, List<Groups> group) {
+    public Courses(int id, String name) {
         this.id = id;
         this.name = name;
-        this.description = description;
-        this.startDate = startDate;
-        this.finishDate = finishDate;
-        this.task = task;
-        this.teacher = teacher;
-        this.group = group;
     }
 
     public Courses(String name, String description, Date startDate, Date finishDate, String task, List<Teachers> teacher, List<Groups> group) {
@@ -40,13 +34,20 @@ public class Courses {
         this.group = group;
     }
 
+    public Courses(int id, String name, String description, Date startDate, Date finishDate, String task, List<Teachers> teacher, List<Groups> group) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+        this.task = task;
+        this.teacher = teacher;
+        this.group = group;
+    }
+
     public Courses(int id, String name, String description, Date start_date, Date finish_date, String task, Teachers teachers, Groups groups) {
-    }
-
-    public Courses(int id, String name) {
 
     }
-
 
     public int getId() {
         return id;

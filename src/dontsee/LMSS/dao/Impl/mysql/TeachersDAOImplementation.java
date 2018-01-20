@@ -18,22 +18,22 @@ import java.util.List;
 public class TeachersDAOImplementation extends LMSDatabase implements TeachersDAO {
 
 
-    public TeachersDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+    private static final String INSERT_TEACHER = "INSERT INTO teachers (first_name, second_name, last_name, phone_number) VALUES (?,?,?,?)";
+    private static final String SELECT_TEACHER = "SELECT * FROM teachers";
+    private static final String DELETE_TEACHER = "DELETE FROM teachers WHERE id = ?";
+    private static final String UPDATE_TEACHER = "UPDATE teachers SET first_name = ?, second_name = ?, last_name = ?, phone_number = ? WHERE id = ?";
+    private static final String TRANSFER_TEACHER = "UPDATE teachers SET group_id = ? WHERE group_id = ?";
+
+    TeachersDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         super();
+        createTableTeachers();
     }
-
-    private static final String INSERT_TEACHERS = "INSERT INTO teachers (first_name,second_name,last_name,phone_number ) VALUES (?,?,?,?,?,?)";
-    private static final String SELECT_TEACHERS = "SELECT * FROM teachers";
-    private static final String DELETE_TEACHERS = "DELETE FROM teachers WHERE  id=?";
-    private static final String TRANSFER_TEACHERS = "UPDATE teachers SET group_id=? WHERE group_id=?";
-    private static final String UPDATE_TEACHERS = "UPDATE teachers SET first_name = ?, second_name = ?, last_name = ?, phone_number = ? WHERE id = ?";
-
 
     @Override
     public boolean addTeacher(Teachers teacher) {
         PreparedStatement ps = null;
         try {
-            ps = getConnection().prepareStatement(INSERT_TEACHERS);
+            ps = getConnection().prepareStatement(INSERT_TEACHER);
             addTeacher(ps, teacher);
             return ps.execute();
         } catch (SQLException e) {
@@ -55,7 +55,7 @@ public class TeachersDAOImplementation extends LMSDatabase implements TeachersDA
     public boolean deleteTeacher(Teachers teacher) {
         PreparedStatement pst = null;
         try {
-            pst = getConnection().prepareStatement(DELETE_TEACHERS);
+            pst = getConnection().prepareStatement(DELETE_TEACHER);
             delteTeacher(pst, teacher);
             return pst.execute();
         } catch (SQLException e) {
@@ -78,7 +78,7 @@ public class TeachersDAOImplementation extends LMSDatabase implements TeachersDA
 
         PreparedStatement ps = null;
         try {
-            ps = getConnection().prepareStatement(TRANSFER_TEACHERS);
+            ps = getConnection().prepareStatement(TRANSFER_TEACHER);
             transferTeacher(ps, oldGroup, newGroup);
 
             ps.execute();
@@ -96,7 +96,7 @@ public class TeachersDAOImplementation extends LMSDatabase implements TeachersDA
     public boolean updateTeacher(Teachers teacher) throws SQLException {
         PreparedStatement ps = null;
         try {
-            ps = getConnection().prepareStatement(UPDATE_TEACHERS);
+            ps = getConnection().prepareStatement(UPDATE_TEACHER);
             updateTeacher(ps, teacher);
             ps.execute();
         } catch (SQLException e) {
@@ -115,7 +115,7 @@ public class TeachersDAOImplementation extends LMSDatabase implements TeachersDA
         Statement st = null;
         try {
             st = getConnection().createStatement();
-            st.execute(SELECT_TEACHERS);
+            st.execute(SELECT_TEACHER);
             ResultSet resultSet = st.getResultSet();
             while (resultSet.next()) {
                 Teachers teachers = new Teachers(

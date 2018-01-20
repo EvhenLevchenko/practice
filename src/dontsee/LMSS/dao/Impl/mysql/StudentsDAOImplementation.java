@@ -16,17 +16,16 @@ import java.util.List;
 
 public class StudentsDAOImplementation extends LMSDatabase implements StudentsDAO {
 
-
-    public StudentsDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        super();
-
-    }
-
-    private static final String INSERT_STUDENT = "INSERT INTO students (first_name,second_name,last_name,age,phone_number,address ) VALUES (?,?,?,?,?,?)";
+    private static final String INSERT_STUDENT = "INSERT INTO students (first_name, second_name, last_name, age, phone_number, address ) VALUES (?,?,?,?,?,?)";
     private static final String SELECT_STUDENT = "SELECT * FROM students";
-    private static final String DELETE_STUDENT = "DELETE FROM students WHERE  id=?";
-    private static final String TRANSFER_STUDENT = "UPDATE students SET group_id=? WHERE group_id=?";
+    private static final String DELETE_STUDENT = "DELETE FROM students WHERE id = ?";
     private static final String UPDATE_STUDENT = "UPDATE students SET first_name = ?, second_name = ?, last_name = ?, age = ?, phone_number = ?, address = ? WHERE id = ?";
+    private static final String TRANSFER_STUDENT = "UPDATE students SET group_id = ? WHERE group_id = ?";
+
+    public StudentsDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+        super();
+        createTableStudents();
+    }
 
     @Override
     public boolean addStudent(Students student) {

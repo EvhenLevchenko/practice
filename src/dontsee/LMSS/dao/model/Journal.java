@@ -6,26 +6,31 @@ public class Journal {
     private int id;
     private int mark;
     private List<Courses> course;
-    private List<Groups> groups;
-    List<Teachers> teachers;
+    private List<Groups> group;
+    List<Teachers> teacher;
 
     public Journal() {
     }
 
-    public Journal(int mark, List<Courses> course, List<Groups> groups) {
+    public Journal(int id, int mark, Courses courses, Teachers teachers, Groups groups){
+        this.id = id;
         this.mark = mark;
-        this.course = course;
-        this.groups = groups;
+        this.course = (List<Courses>) courses;
+        this.teacher = (List<Teachers>) teachers;
+        this.group = (List<Groups>) groups;
     }
 
-    public Journal(int id, int mark, List<Courses> course, List<Groups> groups) {
+    public Journal(int id, int mark, List<Courses> course, List<Groups> group) {
         this.id = id;
         this.mark = mark;
         this.course = course;
-        this.groups = groups;
+        this.group = group;
     }
 
-    public Journal(int id, int mark, Courses courses, Teachers teachers, Groups groups) {
+    public Journal(int mark, List<Courses> course, List<Groups> group) {
+        this.mark = mark;
+        this.course = course;
+        this.group = group;
     }
 
     public int getId() {
@@ -52,12 +57,12 @@ public class Journal {
         this.course = course;
     }
 
-    public List<Groups> getGroups() {
-        return groups;
+    public List<Groups> getGroup() {
+        return group;
     }
 
     public void setGroups(List<Groups> groups) {
-        this.groups = groups;
+        this.group = group;
     }
 
     @Override
@@ -66,7 +71,7 @@ public class Journal {
                 "id=" + id +
                 ", mark=" + mark +
                 ", course=" + course +
-                ", groups=" + groups +
+                ", group=" + group +
                 '}';
     }
 }

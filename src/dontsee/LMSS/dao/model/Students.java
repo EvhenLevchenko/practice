@@ -44,13 +44,12 @@ public class Students {
         this.group = group;
     }
 
-    public Students(ResultSet rs) {
+    public Students(String max, String malikov, String dmitrievich, int i, String s, String shevchenko_street) {
     }
 
     public Students(int id, String first_name, String second_name, String last_name) {
 
     }
-
 
     public int getId() {
         return id;

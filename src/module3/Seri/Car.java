@@ -3,6 +3,7 @@ package module3.Seri;
 
 
 import java.io.Serializable;
+import java.util.Random;
 
 
 public class Car extends Transport implements Serializable {
@@ -10,26 +11,24 @@ public class Car extends Transport implements Serializable {
     private  String color;
     private  int year;
     private  int mileage;
-    private Skoda skoda;
+    private Brend brend;
 
-    public Car(int id, String color, int year, int mileage, Skoda skoda, int col) {
-        super(col);
+
+    public Car(int wheels, int id, String color, int year, int mileage, Brend brend) {
+        super(wheels);
         this.id = id;
         this.color = color;
         this.year = year;
         this.mileage = mileage;
-        this.skoda = skoda;
+        this.brend = brend;
     }
 
-
-
-    public Skoda getSkoda() {
-        return skoda;
+    public Brend getBrend() {
+        return brend;
     }
 
-
-    public void setSkoda(Skoda skoda) {
-        this.skoda = skoda;
+    public void setBrend(Brend brend) {
+        this.brend = brend;
     }
 
     public int getId() {
@@ -71,8 +70,8 @@ public class Car extends Transport implements Serializable {
                 ", color='" + color + '\'' +
                 ", year=" + year +
                 ", mileage=" + mileage +
-                ", skoda=" + skoda +
-                ",wheels="+getCol()+
+                ", brend=" + brend +
+                ", wheels=" + wheels +
                 '}';
     }
 }

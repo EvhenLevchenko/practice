@@ -3,18 +3,17 @@ package module3.Seri;
 import java.io.Serializable;
 
 public class Transport implements Serializable {
-    protected  int col;
+    protected  int wheels;
 
-    public Transport(int col) {
-        this.col = col;
+    public Transport(int wheels) {
+        this.wheels = wheels;
     }
 
-    public int getCol() {
-        return col;
+    public int getWheels() {
+        return wheels;
     }
 
-    public void setCol(int col) {
-        this.col = col;
+    public void setWheels(int wheels) {
+        this.wheels = wheels;
     }
-
 }
