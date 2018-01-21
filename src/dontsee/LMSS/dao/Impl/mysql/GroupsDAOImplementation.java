@@ -6,6 +6,7 @@ import dontsee.LMSS.dao.model.Groups;
 import dontsee.LMSS.dao.model.Students;
 import dontsee.LMSS.dao.model.Teachers;
 
+import java.io.Serializable;
 import java.security.acl.Group;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,32 +15,36 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupsDAOImplementation extends LMSDatabase implements GroupsDAO {
+public class GroupsDAOImplementation extends LMSDatabase implements GroupsDAO,Serializable {
 
-    GroupsDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
-        super();
-        createTableGroups();
-    }
+    private static final long serialVersionUID = -1538748824744973693L;
+
     private static final String INSERT_GROUP = "INSERT INTO groups (name) VALUES (?)";
     private static final String SELECT_GROUP = "SELECT * FROM groups";
     private static final String DELETE_GROUP = "DELETE FROM groups WHERE id = ?";
     private static final String UPDATE_GROUP = "UPDATE groups SET name = ? WHERE id = ?";
 
+
+    public GroupsDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+        super();
+        createTableGroups();
+    }
+
     @Override
     public boolean addGroup(Groups group) {
-        PreparedStatement ps = null;
+        PreparedStatement pst = null;
         try {
-            ps = getConnection().prepareStatement(INSERT_GROUP);
-            addGroup(ps, group);
-            return ps.execute();
+            pst = getConnection().prepareStatement(INSERT_GROUP);
+            addGroup(pst, group);
+            return pst.execute();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } finally {
             {
                 try {
-                    assert ps != null;
-                    ps.close();
+                    assert pst != null;
+                    pst.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -70,23 +75,29 @@ public class GroupsDAOImplementation extends LMSDatabase implements GroupsDAO {
     }
 
     @Override
-    public boolean updateGroup(Groups group) throws SQLException {
-
-        PreparedStatement ps = null;
+    public boolean updateGroup(Groups group) {
+        PreparedStatement pst = null;
         try {
-            ps = getConnection().prepareStatement(UPDATE_GROUP);
-            updateGroup(ps, group);
-            ps.execute();
+            pst = getConnection().prepareStatement(UPDATE_GROUP);
+            updateGroup(pst, group);
+            return pst.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         } finally {
-            if (ps != null) {
-                ps.close();
+            {
+                try {
+                    assert pst != null;
+                    pst.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        return false;
     }
 
     @Override
-    public List<Groups> getAll() throws SQLException {
+    public List<Groups> getAll() {
         List<Groups> result = new ArrayList<>();
         Statement st = null;
         try {
@@ -96,13 +107,8 @@ public class GroupsDAOImplementation extends LMSDatabase implements GroupsDAO {
             while (resultSet.next()) {
                 Groups group = new Groups(
                         resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        new Students(
-                                resultSet.getInt("id"),
-                                resultSet.getString("first_name"),
-                                resultSet.getString("second_name"),
-                                resultSet.getString("last_name")
-                        ));
+                        resultSet.getString("name")
+                );
                 result.add(group);
             }
             return result;
@@ -117,19 +123,19 @@ public class GroupsDAOImplementation extends LMSDatabase implements GroupsDAO {
             }
         }
         return result;
-
     }
 
-    private void addGroup(PreparedStatement ps, Groups group) throws SQLException {
-        ps.setString(1, group.getName());
+    private void addGroup(PreparedStatement pst, Groups group) throws SQLException {
+        pst.setString(1, group.getName());
     }
-    private void deleteGroup(PreparedStatement ps, Groups group) throws SQLException {
-        ps.setInt(1, group.getId());
+
+    private void deleteGroup(PreparedStatement pst, Groups group) throws SQLException {
+        pst.setInt(1, group.getId());
     }
-    private void updateGroup(PreparedStatement ps, Groups group) throws SQLException {
-        ps.setString(1, group.getName());
-        ps.setInt(2, group.getId());
+
+    private void updateGroup(PreparedStatement pst, Groups group) throws SQLException {
+        pst.setString(1, group.getName());
+        pst.setInt(2, group.getId());
     }
 
 }
-

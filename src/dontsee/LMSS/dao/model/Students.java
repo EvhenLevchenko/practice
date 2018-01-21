@@ -2,9 +2,13 @@ package dontsee.LMSS.dao.model;
 
 import attic.List.ArrayList.List;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class Students {
+public class Students implements Serializable {
+
+    private static final long serialVersionUID = -1292399874737154475L;
     private int id;
     private String firstName;
     private String secondName;
@@ -12,26 +16,10 @@ public class Students {
     private int age;
     private String phoneNumber;
     private String address;
-    private List<Courses> course;
-    private List<Teachers> teacher;
-    private List<Groups> group;
 
-    public Students(int id, String first_name, String second_name, String last_name, int age, String phone_number, String address, Courses courses, Teachers teachers, Groups groups) { }
+    public Students(){}
 
-
-    public Students(String firstName, String secondName, String lastName, int age, String phoneNumber, String address, List<Courses> course, List<Teachers> teacher, List<Groups> group) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.lastName = lastName;
-        this.age = age;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.course = course;
-        this.teacher = teacher;
-        this.group = group;
-    }
-
-    public Students(int id, String firstName, String secondName, String lastName, int age, String phoneNumber, String address, List<Courses> course, List<Teachers> teacher, List<Groups> group) {
+    public Students(int id, String firstName, String secondName, String lastName, int age, String phoneNumber, String address) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -39,16 +27,15 @@ public class Students {
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.course = course;
-        this.teacher = teacher;
-        this.group = group;
     }
 
-    public Students(String max, String malikov, String dmitrievich, int i, String s, String shevchenko_street) {
-    }
-
-    public Students(int id, String first_name, String second_name, String last_name) {
-
+    public Students(String firstName, String secondName, String lastName, int age, String phoneNumber, String address) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.lastName = lastName;
+        this.age = age;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
     }
 
     public int getId() {
@@ -107,29 +94,6 @@ public class Students {
         this.address = address;
     }
 
-    public List<Courses> getCourse() {
-        return course;
-    }
-
-    public void setCourse(List<Courses> course) {
-        this.course = course;
-    }
-
-    public List<Teachers> getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(List<Teachers> teacher) {
-        this.teacher = teacher;
-    }
-
-    public List<Groups> getGroup() {
-        return group;
-    }
-
-    public void setGroup(List<Groups> group) {
-        this.group = group;
-    }
 
     @Override
     public String toString() {
@@ -141,9 +105,6 @@ public class Students {
                 ", age=" + age +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
-                ", course=" + course +
-                ", teacher=" + teacher +
-                ", group=" + group +
                 '}';
     }
 }

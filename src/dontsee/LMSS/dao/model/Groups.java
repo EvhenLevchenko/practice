@@ -1,37 +1,24 @@
 package dontsee.LMSS.dao.model;
 
-import attic.List.ArrayList.List;
 
-public class Groups {
+import java.io.Serializable;
+
+public class Groups implements Serializable {
+
+
+    private static final long serialVersionUID = 8850424821756658571L;
     private int id;
     private String name;
-    private List<Students> student;
-    private List<Teachers> teacher;
-
 
     public Groups(){}
 
-    public Groups(int id, String name, List<Students> student, List<Teachers> teacher) {
+    public Groups(int id, String name) {
         this.id = id;
         this.name = name;
-        this.student = student;
-        this.teacher = teacher;
     }
 
-    public Groups(int id, String name){
-        this.id =id ;
+    public Groups(String name) {
         this.name = name;
-    }
-
-    public Groups(int id, String name, Students student) {
-        this.id = id;
-        this.name = name;
-        this.student = (List<Students>) student;
-    }
-
-    public Groups(String name, List<Students> student) {
-        this.name = name;
-        this.student = student;
     }
 
     public int getId() {
@@ -50,29 +37,12 @@ public class Groups {
         this.name = name;
     }
 
-    public List<Students> getStudent() {
-        return student;
-    }
-
-    public void setStudent(List<Students> student) {
-        this.student = student;
-    }
-
-    public List<Teachers> getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(List<Teachers> teacher) {
-        this.teacher = teacher;
-    }
 
     @Override
     public String toString() {
         return "Groups{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", student=" + student +
-                ", teacher=" + teacher +
                 '}';
     }
 }

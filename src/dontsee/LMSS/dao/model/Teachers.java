@@ -2,50 +2,32 @@ package dontsee.LMSS.dao.model;
 
 import attic.List.ArrayList.List;
 
-public class Teachers {
+import java.io.Serializable;
+
+public class Teachers implements Serializable {
+
+
+    private static final long serialVersionUID = -4257427297514976403L;
     private int id;
     private String firstName;
     private String secondName;
     private String lastName;
     private String phoneNumber;
-    private List<Courses> course;
-    private List<Groups> group;
 
+    public Teachers (){}
 
-    public Teachers() {
-    }
-
-    public Teachers(String firstName, String secondName, String lastName, String phoneNumber, List<Courses> course, List<Groups> group) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.course = course;
-        this.group = group;
-    }
-
-    public Teachers(int id, String firstName, String secondName, String lastName, String phoneNumber, List<Courses> course, List<Groups> group) {
+    public Teachers(int id, String firstName, String secondName, String lastName, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        this.course = course;
-        this.group = group;
     }
 
-    public Teachers(int id, String first_name, String second_name, String last_name, String phone_number, Courses courses, Groups groups) {
-    }
-
-    public Teachers(int id, String first_name, String second_name, String last_name) {
-
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
+    public Teachers(String firstName, String secondName, String lastName, String phoneNumber) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.lastName = lastName;
         this.phoneNumber = phoneNumber;
     }
 
@@ -81,20 +63,12 @@ public class Teachers {
         this.lastName = lastName;
     }
 
-    public List<Courses> getCourse() {
-        return course;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setCourse(List<Courses> course) {
-        this.course = course;
-    }
-
-    public List<Groups> getGroup() {
-        return group;
-    }
-
-    public void setGroup(List<Groups> group) {
-        this.group = group;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
@@ -104,8 +78,7 @@ public class Teachers {
                 ", firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", course=" + course +
-                ", group=" + group +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

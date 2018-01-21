@@ -1,43 +1,46 @@
 package dontsee.LMSS.dao.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Timetable {
+public class Timetable implements Serializable {
+
+    private static final long serialVersionUID = -6578658453852486052L;
     private int id;
     private String days;
-    private Date startLecture;
-    private Date finishLecture;
-    private List<Courses> course;
+    private String startLecture;
+    private String finishLecture;
 
+    public Timetable(){}
 
-    public Timetable(int id, String days, java.sql.Date start_lecture, java.sql.Date finish_lecture, Courses courses){
-        this.id = id;
-        this.days = days;
-        this.startLecture = start_lecture;
-        this.finishLecture = finish_lecture;
-        this.course = (List<Courses>) courses;
-    }
-
-    public Timetable(int id ,String days, Date startLecture, Date finishLecture, List<Courses> course) {
+    public Timetable(int id, String days, String startLecture, String finishLecture) {
         this.id = id;
         this.days = days;
         this.startLecture = startLecture;
         this.finishLecture = finishLecture;
-        this.course = course;
     }
 
-    public Timetable(String days, Date startDate, Date finishDate, Courses courses) {
-
+    public Timetable(String days, String startLecture, String finishLecture) {
+        this.days = days;
+        this.startLecture = startLecture;
+        this.finishLecture = finishLecture;
     }
 
-
-    public int getId() {
-        return id;
+    public String getStartLecture() {
+        return startLecture;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setStartLecture(String startLecture) {
+        this.startLecture = startLecture;
+    }
+
+    public String getFinishLecture() {
+        return finishLecture;
+    }
+
+    public void setFinishLecture(String finishLecture) {
+        this.finishLecture = finishLecture;
     }
 
     public String getDays() {
@@ -48,28 +51,12 @@ public class Timetable {
         this.days = days;
     }
 
-    public Date getStartLecture() {
-        return startLecture;
+    public int getId() {
+        return id;
     }
 
-    public void setStartLecture(Date startLecture) {
-        this.startLecture = startLecture;
-    }
-
-    public Date getFinishLecture() {
-        return finishLecture;
-    }
-
-    public void setFinishLecture(Date finishLecture) {
-        this.finishLecture = finishLecture;
-    }
-
-    public List<Courses> getCourse() {
-        return course;
-    }
-
-    public void setCourse(List<Courses> course) {
-        this.course = course;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -79,7 +66,6 @@ public class Timetable {
                 ", days='" + days + '\'' +
                 ", startLecture=" + startLecture +
                 ", finishLecture=" + finishLecture +
-                ", course=" + course +
                 '}';
     }
 }

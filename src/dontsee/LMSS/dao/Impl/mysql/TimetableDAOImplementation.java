@@ -5,69 +5,41 @@ import dontsee.LMSS.dao.TimetableDAO;
 import dontsee.LMSS.dao.model.Courses;
 import dontsee.LMSS.dao.model.Timetable;
 
+import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimetableDAOImplementation extends LMSDatabase implements TimetableDAO {
+public class TimetableDAOImplementation extends LMSDatabase implements TimetableDAO,Serializable {
+
+    private static final long serialVersionUID = -7532368520133108523L;
     private static final String INSERT_TIMETABLE = "INSERT INTO timetable (days, start_lecture, finish_lecture) VALUES (?,?,?)";
     private static final String SELECT_TIMETABLE = "SELECT * FROM timetable";
-    private static final String DELETE_TIMETABLE = "DELETE FROM timetable WHERE days = ?";
-    private static final String UPDATE_TIMETABLE = "UPDATE timetable SET start_lecture = ?, finish_lecture = ? WHERE days = ?";
-
-    public TimetableDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-    }
+    private static final String DELETE_TIMETABLE = "DELETE FROM timetable WHERE id = ?";
+    private static final String UPDATE_TIMETABLE = "UPDATE timetable SET days = ?, start_lecture = ?, finish_lecture = ? WHERE id = ?";
 
 
-    @Override
-    public List<Timetable> getTimetable() {
-        List<Timetable> result = new ArrayList<>();
-        Statement st = null;
-        try {
-            st = getConnection().createStatement();
-            st.execute(SELECT_TIMETABLE);
-            ResultSet resultSet = st.getResultSet();
-            while (resultSet.next()) {
-                Timetable timetablenal = new Timetable(
-                        resultSet.getString("days"),
-                        resultSet.getDate("startDate"),
-                        resultSet.getDate("finishDate"),
-                        new Courses(
-                                resultSet.getInt("id"),
-                                resultSet.getString("name")
-                        )
-                );
-                result.add(timetablenal);
-            }
-            return result;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                assert st != null;
-                st.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return result;
+
+    public TimetableDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+        super();
+        createTableTimetable();
     }
 
     @Override
     public boolean addTimetable(Timetable timetable) {
-        PreparedStatement ps = null;
+        PreparedStatement pst = null;
         try {
-            ps = getConnection().prepareStatement(INSERT_TIMETABLE);
-            addTimetable(ps, timetable);
-            return ps.execute();
+            pst = getConnection().prepareStatement(INSERT_TIMETABLE);
+            addTimetable(pst, timetable);
+            return pst.execute();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } finally {
             {
                 try {
-                    assert ps != null;
-                    ps.close();
+                    assert pst != null;
+                    pst.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -98,37 +70,72 @@ public class TimetableDAOImplementation extends LMSDatabase implements Timetable
     }
 
     @Override
-    public boolean updateTimetable(Timetable timetable) throws SQLException {
-        PreparedStatement ps = null;
+    public boolean updateTimetable(Timetable timetable) {
+        PreparedStatement pst = null;
         try {
-            ps = getConnection().prepareStatement(UPDATE_TIMETABLE);
-            updateTimetable(ps, timetable);
-            ps.execute();
+            pst = getConnection().prepareStatement(UPDATE_TIMETABLE);
+            updateTimetable(pst, timetable);
+            return pst.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         } finally {
-            if (ps != null) {
-                ps.close();
+            {
+                try {
+                    assert pst != null;
+                    pst.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        return false;
-
     }
 
-
-    private void addTimetable(PreparedStatement ps, Timetable timetable) throws SQLException {
-        ps.setString(1, timetable.getDays());
-        ps.setDate(2, (Date) timetable.getStartLecture());
-        ps.setDate(3, (Date) timetable.getFinishLecture());
-
+    @Override
+    public List<Timetable> getTimetable() {
+        List<Timetable> result = new ArrayList<>();
+        Statement st = null;
+        try {
+            st = getConnection().createStatement();
+            st.execute(SELECT_TIMETABLE);
+            ResultSet resultSet = st.getResultSet();
+            while (resultSet.next()) {
+                Timetable timetable = new Timetable(
+                        resultSet.getInt("id"),
+                        resultSet.getString("days"),
+                        resultSet.getString("start_lecture"),
+                        resultSet.getString("finish_lecture")
+                );
+                result.add(timetable);
+            }
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                assert st != null;
+                st.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 
-    private void deleteTimetable(PreparedStatement ps, Timetable timetable) throws SQLException {
-        ps.setString(1, timetable.getDays());
+    private void addTimetable(PreparedStatement pst, Timetable timetable) throws SQLException {
+        pst.setString(1, timetable.getDays());
+        pst.setString(2, timetable.getStartLecture());
+        pst.setString(3, timetable.getFinishLecture());
     }
 
-    private void updateTimetable(PreparedStatement ps, Timetable timetable) throws SQLException {
-        ps.setDate(1, (Date) timetable.getStartLecture());
-        ps.setDate(2, (Date) timetable.getFinishLecture());
-        ps.setString(3, timetable.getDays());
-
+    private void deleteTimetable(PreparedStatement pst, Timetable timetable) throws SQLException {
+        pst.setString(1, timetable.getDays());
     }
+
+    private void updateTimetable(PreparedStatement pst, Timetable timetable) throws SQLException {
+        pst.setString(1, timetable.getStartLecture());
+        pst.setString(2, timetable.getFinishLecture());
+        pst.setString(3, timetable.getDays());
+    }
+
 }

@@ -2,51 +2,38 @@ package dontsee.LMSS.dao.model;
 
 import attic.List.ArrayList.List;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class Courses {
+public class Courses implements Serializable {
+
+
+    private static final long serialVersionUID = -7661308522188934714L;
     private int id;
     private String name;
     private String description;
-    private Date startDate;
-    private Date finishDate;
+    private String startDate;
+    private String finishDate;
     private String task;
-    private List<Teachers> teacher;
-    private List<Groups> group;
 
+    public Courses(){}
 
-    public Courses() {
-    }
-
-    public Courses(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Courses(String name, String description, Date startDate, Date finishDate, String task, List<Teachers> teacher, List<Groups> group) {
-        this.name = name;
-        this.description = description;
-        this.startDate = startDate;
-        this.finishDate = finishDate;
-        this.task = task;
-        this.teacher = teacher;
-        this.group = group;
-    }
-
-    public Courses(int id, String name, String description, Date startDate, Date finishDate, String task, List<Teachers> teacher, List<Groups> group) {
+    public Courses(int id, String name, String description, String startDate, String finishDate, String task) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.task = task;
-        this.teacher = teacher;
-        this.group = group;
     }
 
-    public Courses(int id, String name, String description, Date start_date, Date finish_date, String task, Teachers teachers, Groups groups) {
-
+    public Courses(String name, String description,String startDate, String finishDate, String task) {
+        this.name = name;
+        this.description = description;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+        this.task = task;
     }
 
     public int getId() {
@@ -73,19 +60,19 @@ public class Courses {
         this.description = description;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getFinishDate() {
+    public String getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(Date finishDate) {
+    public void setFinishDate(String finishDate) {
         this.finishDate = finishDate;
     }
 
@@ -97,21 +84,6 @@ public class Courses {
         this.task = task;
     }
 
-    public List<Teachers> getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(List<Teachers> teacher) {
-        this.teacher = teacher;
-    }
-
-    public List<Groups> getGroup() {
-        return group;
-    }
-
-    public void setGroup(List<Groups> group) {
-        this.group = group;
-    }
 
     @Override
     public String toString() {
@@ -122,8 +94,6 @@ public class Courses {
                 ", startDate=" + startDate +
                 ", finishDate=" + finishDate +
                 ", task='" + task + '\'' +
-                ", teacher=" + teacher +
-                ", group=" + group +
                 '}';
     }
 }
