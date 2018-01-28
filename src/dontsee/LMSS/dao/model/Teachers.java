@@ -7,12 +7,14 @@ import java.io.Serializable;
 public class Teachers implements Serializable {
 
 
-    private static final long serialVersionUID = -4257427297514976403L;
+    private static final long serialVersionUID = 6955736773009625470L;
     private int id;
     private String firstName;
     private String secondName;
     private String lastName;
     private String phoneNumber;
+    private Courses course;
+    private Groups group;
 
     public Teachers (){}
 
@@ -29,6 +31,22 @@ public class Teachers implements Serializable {
         this.secondName = secondName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+    }
+
+    public Teachers(String firstName, String secondName, String lastName, String phoneNumber, Courses course, Groups group) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.course = course;
+        this.group = group;
+    }
+
+    public Teachers(int id, String firstName, String secondName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.lastName = lastName;
     }
 
     public int getId() {
@@ -71,6 +89,26 @@ public class Teachers implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public Courses getCourse() {
+        return course;
+    }
+
+    public void setCourse(Courses course) {
+        this.course = course;
+    }
+
+    public Groups getGroup() {
+        return group;
+    }
+
+    public void setGroup(Groups group) {
+        this.group = group;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     @Override
     public String toString() {
         return "Teachers{" +
@@ -79,6 +117,8 @@ public class Teachers implements Serializable {
                 ", secondName='" + secondName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", course=" + course +
+                ", group=" + group +
                 '}';
     }
 }

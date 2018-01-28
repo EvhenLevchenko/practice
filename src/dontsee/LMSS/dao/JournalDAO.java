@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface JournalDAO {
+    boolean addJournal(Journal journal) throws SQLException;
+    boolean deleteJournal(Journal journal) throws SQLException;
     boolean updateJournal(Journal journal) throws SQLException;
-    boolean addJournal(Journal journal);
-    boolean deleteJournal(Journal journal);
     List<Journal> getAll() throws SQLException;
 
 }

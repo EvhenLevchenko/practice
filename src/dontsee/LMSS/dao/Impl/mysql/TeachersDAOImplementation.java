@@ -19,19 +19,16 @@ import java.util.List;
 public class TeachersDAOImplementation extends LMSDatabase implements TeachersDAO,Serializable {
 
 
-    private static final long serialVersionUID = 8191682078603112091L;
-
-
     private static final String INSERT_TEACHER = "INSERT INTO teachers (first_name, second_name, last_name, phone_number) VALUES (?,?,?,?)";
     private static final String SELECT_TEACHER = "SELECT * FROM teachers";
     private static final String DELETE_TEACHER = "DELETE FROM teachers WHERE id = ?";
     private static final String UPDATE_TEACHER = "UPDATE teachers SET first_name = ?, second_name = ?, last_name = ?, phone_number = ? WHERE id = ?";
     private static final String TRANSFORM_TEACHER = "UPDATE teachers SET group_id = ? WHERE group_id = ?";
+    private static final long serialVersionUID = 3453129064145108702L;
 
 
     public TeachersDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         super();
-        createTableTeachers();
     }
 
     @Override
@@ -166,8 +163,8 @@ public class TeachersDAOImplementation extends LMSDatabase implements TeachersDA
     }
 
     private void transformTeacher(PreparedStatement pst, Groups oldGroup, Groups newGroup) throws SQLException {
-        pst.setInt(1,oldGroup.getId());
-        pst.setInt(2,newGroup.getId());
+        pst.setInt(1,oldGroup.getGroupId());
+        pst.setInt(2,newGroup.getGroupId());
     }
 
     private void updateTeacher(PreparedStatement pst, Teachers teacher) throws SQLException {

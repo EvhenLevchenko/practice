@@ -1,25 +1,19 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        String[] arr=new String[]{"ef","asd","dfs"};
-        List<String> list= Arrays.asList(arr);
-        Collections.sort(list);
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+   Class.forName("org.h2.Driver").newInstance();
 
-        Collections.sort(list, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return 0;
-            }
-        });
+        Connection connection= DriverManager.getConnection("jdbc:h2:mem:test","","");
 
-        for (String s : list) {
-            System.out.println(s);
-        }
-
-        list.forEach(s-> System.out.println(s));
+        Statement st=connection.createStatement();
+        st.execute("SHOW DATABASES");
     }
 }

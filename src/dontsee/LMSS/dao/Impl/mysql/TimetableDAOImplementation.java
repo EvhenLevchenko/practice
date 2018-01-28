@@ -4,25 +4,28 @@ package dontsee.LMSS.dao.Impl.mysql;
 import dontsee.LMSS.dao.TimetableDAO;
 import dontsee.LMSS.dao.model.Courses;
 import dontsee.LMSS.dao.model.Timetable;
+import javafx.scene.input.DataFormat;
 
 import java.io.Serializable;
 import java.sql.*;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimetableDAOImplementation extends LMSDatabase implements TimetableDAO,Serializable {
+public class TimetableDAOImplementation extends LMSDatabase implements TimetableDAO, Serializable {
 
-    private static final long serialVersionUID = -7532368520133108523L;
+
     private static final String INSERT_TIMETABLE = "INSERT INTO timetable (days, start_lecture, finish_lecture) VALUES (?,?,?)";
     private static final String SELECT_TIMETABLE = "SELECT * FROM timetable";
     private static final String DELETE_TIMETABLE = "DELETE FROM timetable WHERE id = ?";
     private static final String UPDATE_TIMETABLE = "UPDATE timetable SET days = ?, start_lecture = ?, finish_lecture = ? WHERE id = ?";
-
+    private static final long serialVersionUID = -7532368520133108523L;
 
 
     public TimetableDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         super();
-        createTableTimetable();
     }
 
     @Override
@@ -103,8 +106,8 @@ public class TimetableDAOImplementation extends LMSDatabase implements Timetable
                 Timetable timetable = new Timetable(
                         resultSet.getInt("id"),
                         resultSet.getString("days"),
-                        resultSet.getString("start_lecture"),
-                        resultSet.getString("finish_lecture")
+                        (LocalDate) DateTimeFormatter.ISO_LOCAL_TIME.parse(resultSet.getString("start_lecture")),
+                        (LocalDate) DateTimeFormatter.ISO_LOCAL_TIME.parse(resultSet.getString("finish_lecture"))
                 );
                 result.add(timetable);
             }
@@ -124,8 +127,8 @@ public class TimetableDAOImplementation extends LMSDatabase implements Timetable
 
     private void addTimetable(PreparedStatement pst, Timetable timetable) throws SQLException {
         pst.setString(1, timetable.getDays());
-        pst.setString(2, timetable.getStartLecture());
-        pst.setString(3, timetable.getFinishLecture());
+        pst.setString(2, timetable.getStartLecture().format(DateTimeFormatter.ISO_LOCAL_TIME));
+        pst.setString(3, timetable.getFinishLecture().format(DateTimeFormatter.ISO_LOCAL_TIME));
     }
 
     private void deleteTimetable(PreparedStatement pst, Timetable timetable) throws SQLException {
@@ -133,8 +136,8 @@ public class TimetableDAOImplementation extends LMSDatabase implements Timetable
     }
 
     private void updateTimetable(PreparedStatement pst, Timetable timetable) throws SQLException {
-        pst.setString(1, timetable.getStartLecture());
-        pst.setString(2, timetable.getFinishLecture());
+        pst.setString(1, timetable.getStartLecture().format(DateTimeFormatter.ISO_LOCAL_TIME));
+        pst.setString(2, timetable.getFinishLecture().format(DateTimeFormatter.ISO_LOCAL_TIME));
         pst.setString(3, timetable.getDays());
     }
 

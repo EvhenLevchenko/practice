@@ -17,125 +17,98 @@ import java.util.List;
 
 public class GroupsDAOImplementation extends LMSDatabase implements GroupsDAO,Serializable {
 
-    private static final long serialVersionUID = -1538748824744973693L;
 
-    private static final String INSERT_GROUP = "INSERT INTO groups (name) VALUES (?)";
+    private static final String INSERT_GROUP = "INSERT INTO groups (group_name) VALUES (?)";
     private static final String SELECT_GROUP = "SELECT * FROM groups";
-    private static final String DELETE_GROUP = "DELETE FROM groups WHERE id = ?";
-    private static final String UPDATE_GROUP = "UPDATE groups SET name = ? WHERE id = ?";
+    private static final String DELETE_GROUP = "DELETE FROM groups WHERE group_id = ?";
+    private static final String UPDATE_GROUP = "UPDATE groups SET group_name = ? WHERE group_id = ?";
+    private static final long serialVersionUID = -2827073176309435274L;
 
 
     public GroupsDAOImplementation() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         super();
-        createTableGroups();
     }
 
     @Override
-    public boolean addGroup(Groups group) {
+    public boolean addGroup(Groups group) throws SQLException {
         PreparedStatement pst = null;
         try {
             pst = getConnection().prepareStatement(INSERT_GROUP);
             addGroup(pst, group);
             return pst.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
         } finally {
-            {
-                try {
-                    assert pst != null;
-                    pst.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+            if (pst != null) {
+                pst.close();
             }
         }
     }
 
     @Override
-    public boolean deleteGroup(Groups group) {
+    public boolean deleteGroup(Groups group) throws SQLException {
         PreparedStatement pst = null;
         try {
             pst = getConnection().prepareStatement(DELETE_GROUP);
             deleteGroup(pst, group);
             return pst.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
         } finally {
-            {
-                try {
-                    assert pst != null;
-                    pst.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+            if (pst != null) {
+                pst.close();
             }
         }
     }
 
     @Override
-    public boolean updateGroup(Groups group) {
+    public boolean updateGroup(Groups group) throws SQLException {
         PreparedStatement pst = null;
         try {
             pst = getConnection().prepareStatement(UPDATE_GROUP);
             updateGroup(pst, group);
             return pst.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
         } finally {
-            {
-                try {
-                    assert pst != null;
-                    pst.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+            if (pst != null) {
+                pst.close();
             }
         }
     }
 
     @Override
-    public List<Groups> getAll() {
+    public List<Groups> getAll() throws SQLException {
         List<Groups> result = new ArrayList<>();
         Statement st = null;
         try {
             st = getConnection().createStatement();
             st.execute(SELECT_GROUP);
             ResultSet resultSet = st.getResultSet();
-            while (resultSet.next()) {
-                Groups group = new Groups(
-                        resultSet.getInt("id"),
-                        resultSet.getString("name")
-                );
-                result.add(group);
-            }
+            getAll(resultSet,result);
             return result;
-        } catch (SQLException e) {
-            e.printStackTrace();
         } finally {
-            try {
-                assert st != null;
+            if(st != null){
                 st.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
-        return result;
     }
 
     private void addGroup(PreparedStatement pst, Groups group) throws SQLException {
-        pst.setString(1, group.getName());
+        pst.setString(1, group.getGroupName());
+        // pst.setInt(2, group.getStudent().getStudentId());
     }
 
     private void deleteGroup(PreparedStatement pst, Groups group) throws SQLException {
-        pst.setInt(1, group.getId());
+        pst.setInt(1, group.getGroupId());
     }
 
     private void updateGroup(PreparedStatement pst, Groups group) throws SQLException {
-        pst.setString(1, group.getName());
-        pst.setInt(2, group.getId());
+        pst.setString(1, group.getGroupName());
+        pst.setInt(2, group.getGroupId());
     }
 
+    private void getAll(ResultSet resultSet, List<Groups> result) throws SQLException {
+        while (resultSet.next()) {
+            Groups group = new Groups(
+                    resultSet.getInt("group_id"),
+                    resultSet.getString("group_name")
+            );
+            result.add(group);
+        }
+    }
 }

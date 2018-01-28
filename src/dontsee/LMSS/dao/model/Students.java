@@ -8,8 +8,9 @@ import java.sql.SQLException;
 
 public class Students implements Serializable {
 
-    private static final long serialVersionUID = -1292399874737154475L;
-    private int id;
+
+    private static final long serialVersionUID = -994619034723239759L;
+    private int studentId;
     private String firstName;
     private String secondName;
     private String lastName;
@@ -19,14 +20,22 @@ public class Students implements Serializable {
 
     public Students(){}
 
-    public Students(int id, String firstName, String secondName, String lastName, int age, String phoneNumber, String address) {
-        this.id = id;
+    public Students(int studentId, String firstName, String secondName, String lastName, int age, String phoneNumber, String address) {
+        this.studentId = studentId;
         this.firstName = firstName;
         this.secondName = secondName;
         this.lastName = lastName;
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.address = address;
+    }
+
+
+    public Students(int studentId, String firstName, String secondName, String lastName) {
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.lastName = lastName;
     }
 
     public Students(String firstName, String secondName, String lastName, int age, String phoneNumber, String address) {
@@ -38,12 +47,20 @@ public class Students implements Serializable {
         this.address = address;
     }
 
-    public int getId() {
-        return id;
+    public Students(int studentId) {
+        this.studentId = studentId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
     public String getFirstName() {
@@ -98,7 +115,7 @@ public class Students implements Serializable {
     @Override
     public String toString() {
         return "Students{" +
-                "id=" + id +
+                "studentId=" + studentId +
                 ", firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
                 ", lastName='" + lastName + '\'' +

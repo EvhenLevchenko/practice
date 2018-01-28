@@ -8,32 +8,41 @@ import java.util.Date;
 
 public class Courses implements Serializable {
 
-
-    private static final long serialVersionUID = -7661308522188934714L;
+    private static final long serialVersionUID = 5208714252564662373L;
     private int id;
-    private String name;
+    private String courseName;
     private String description;
-    private String startDate;
-    private String finishDate;
+    private LocalDate startDate;
+    private LocalDate finishDate;
     private String task;
+    private Groups group;
 
     public Courses(){}
 
-    public Courses(int id, String name, String description, String startDate, String finishDate, String task) {
+    public Courses(int id, String courseName, String description, LocalDate startDate, LocalDate finishDate, String task) {
         this.id = id;
-        this.name = name;
+        this.courseName = courseName;
         this.description = description;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.task = task;
     }
 
-    public Courses(String name, String description,String startDate, String finishDate, String task) {
-        this.name = name;
+    public Courses(String courseName, String description,LocalDate startDate, LocalDate finishDate, String task) {
+        this.courseName = courseName;
         this.description = description;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.task = task;
+    }
+
+    public Courses(String courseName, String description, LocalDate startDate, LocalDate finishDate, String task, Groups group) {
+        this.courseName = courseName;
+        this.description = description;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+        this.task = task;
+        this.group = group;
     }
 
     public int getId() {
@@ -44,12 +53,12 @@ public class Courses implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public String getDescription() {
@@ -60,19 +69,19 @@ public class Courses implements Serializable {
         this.description = description;
     }
 
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public String getFinishDate() {
+    public LocalDate getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(String finishDate) {
+    public void setFinishDate(LocalDate finishDate) {
         this.finishDate = finishDate;
     }
 
@@ -84,16 +93,28 @@ public class Courses implements Serializable {
         this.task = task;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Groups getGroup() {
+        return group;
+    }
+
+    public void setGroup(Groups group) {
+        this.group = group;
+    }
 
     @Override
     public String toString() {
         return "Courses{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", courseName='" + courseName + '\'' +
                 ", description='" + description + '\'' +
-                ", startDate=" + startDate +
-                ", finishDate=" + finishDate +
+                ", startDate='" + startDate + '\'' +
+                ", finishDate='" + finishDate + '\'' +
                 ", task='" + task + '\'' +
+                ", group=" + group +
                 '}';
     }
 }

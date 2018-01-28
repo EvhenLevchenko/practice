@@ -6,43 +6,50 @@ import java.io.Serializable;
 public class Groups implements Serializable {
 
 
-    private static final long serialVersionUID = 8850424821756658571L;
-    private int id;
-    private String name;
+    private static final long serialVersionUID = -6841832214814037475L;
+    private int groupId;
+    private String groupName;
 
     public Groups(){}
 
-    public Groups(int id, String name) {
-        this.id = id;
-        this.name = name;
+
+    public Groups(int groupId, String groupName) {
+        this.groupId = groupId;
+        this.groupName = groupName;
     }
 
-    public Groups(String name) {
-        this.name = name;
+    public Groups(String groupName) {
+        this.groupName = groupName;
     }
 
-    public int getId() {
-        return id;
+
+    public int getGroupId() {
+        return groupId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 
-    public String getName() {
-        return name;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
 
     @Override
     public String toString() {
         return "Groups{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "id=" + groupId +
+                ", groupName='" + groupName + '\'' +
                 '}';
     }
 }
