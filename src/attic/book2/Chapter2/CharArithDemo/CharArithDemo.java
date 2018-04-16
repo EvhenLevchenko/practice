@@ -34,5 +34,23 @@ public class CharArithDemo {
         System.out.println(p);
         System.out.println(l);
 
+
+        boolean f = true;
+        boolean u = false;
+        u = f || u;
+        //  System.out.println(u);
+
+        boolean x = true;
+        x ^= true;
+        System.out.println(x);
+        int t = 257;
+        byte m = (byte) t;
+        System.out.println(" Знaчeниe Ь: " + m);
+        System.out.println("" + "" + "");
+
+        int k = 3;
+        int s = 10;
+        h = s  % k;
+        System.out.println(h);
     }
 }
