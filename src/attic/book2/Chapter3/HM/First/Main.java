@@ -2,7 +2,7 @@ package attic.book2.Chapter3.HM.First;
 
 import java.io.IOException;
 
-public class Main {
+ class Main {
     public static void main(String[] args) throws IOException {
         char ch;
         int spaces = 0;
