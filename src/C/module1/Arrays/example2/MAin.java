@@ -19,5 +19,7 @@ public class MAin {
         System.out.println(sr);
 
 
+        System.out.println("\uffff");
+
     }
 }
